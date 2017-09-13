@@ -16,6 +16,7 @@ Run the jupyter notebook as follows
 	jupyter notebook Project1.ipynb
 ```
 
+If the browser does not open automagically, just copy the link it gives you.You can fix the issue if desired by modifying jupyter\_notebook\_config but it is not necessary...
 
 ### Links
 [1][https://conda.io/docs/_downloads/conda-cheatsheet.pdf]
