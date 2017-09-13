@@ -19,7 +19,7 @@ Run the jupyter notebook as follows
 If the browser does not open automagically, just copy the link it gives you.You can fix the issue if desired by modifying jupyter\_notebook\_config but it is not necessary...
 
 ### Links
-[1][https://conda.io/docs/_downloads/conda-cheatsheet.pdf]
-[2][https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet]
-[3][https://wch.github.io/latexsheet/]
+- [Conda CheatSheet](https://conda.io/docs/_downloads/conda-cheatsheet.pdf)
+- [Markdown CheatSheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+- [Latex CheatSheet](https://wch.github.io/latexsheet/)
 
