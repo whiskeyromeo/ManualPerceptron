@@ -1,7 +1,6 @@
 ### Overview
 This is still in the early stages, so far I've done some basic plotting but the setup of the decision function still needs to be done.
 
-9.12.2017 --> planning on doing some work this afternoon to clean up the notebook file and actually get things to a more readable state. 
 
 ### Setup
 To get up and running you will need to install anaconda
