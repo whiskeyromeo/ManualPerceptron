@@ -1,15 +1,20 @@
+'''
+This code provides the primary support for the functions implemented
+in the jupyter notebook
+
+__author__ = "Will Rusell"
+
+
+'''
+
 import random
 import numpy as np
-import matplotlib.pyplot as plt
 from .Student import Student
 
-x2,x1 = 100, 210
-y2, y1 = 6.2, 4.8
-y3 = 5.55
-male_color = [ .4196,0.957,0.259,.5]
-female_color = [ .7, .1843, .6, .5]
-
-
+'''
+	Generates two normally distributed lists of students separated by gender and 
+	returns the lists.
+'''
 def generate_random_student_data(sample_size=2000):
 	male_students = []
 	female_students = []
@@ -38,117 +43,18 @@ def generate_random_student_data(sample_size=2000):
 		print("\t{}|\t{}|\t{}".format(i, female_students[i].height, female_students[i].weight))
 	return male_students, female_students
 
-def write_data_to_file(male_students, female_students, fileName="./data.txt"):
-	f = open(fileName, "w+")
-	
-	male_heights = [x.height for x in male_students]
-	male_weights = [x.weight for x in male_students]
-	
-	female_heights = [y.height for y in female_students]
-	female_weights = [y.weight for y in female_students]
-
-	for i in range(0, len(male_students)):
-		f.write("{},{},{}\n".format(round(male_heights[i],2),round(male_weights[i],2), 0))
-		f.write("{},{},{}\n".format(round(female_heights[i],2), round(female_weights[i],2), 1))
-	f.close()
-
-def write_coefficients_to_file(x1,x2,y1,y2, fileName):
-	f = open(fileName, "w+")
-	slope = (y2-y1)/(x2-x1)
-	slope = round(slope*10000.0)/10000.0
-	if slope != 0:
-		intercept = -y2/(slope*x2)
-	else:
-		intercept = y2
-	f.write("{}\n".format(slope))
-	f.write("{}\n".format(intercept))
-	f.write("{}\n".format(-1))
-	f.close()
-
-def plot_overall_data(male_students, female_students):
-	male_heights = [x.height for x in male_students]
-	male_weights = [x.weight for x in male_students]
-	
-	female_heights = [y.height for y in female_students]
-	female_weights = [y.weight for y in female_students]
-	sample_size = len(male_students)
-	# Visually estimated values based on current sample of 60
-
-	plt.figure("Student Sample")
-
-
-	# Plot estimated decision function for 2 dimensions
-	plt.subplot(221)
-	plt.title("Student Height/Weight")
-	plt.xlabel("Weight")
-	plt.ylabel("Height")
-	plt.scatter(male_weights,male_heights,marker="s",color=male_color, edgecolors="darkgreen")
-	plt.scatter(female_weights, female_heights, marker='o', color=female_color, edgecolors="violet")
-	
-	# plt.plot(male_weights,male_heights,marker="s", color=[ 0.,0.47843137,0.76078431,1.])
-	# plt.plot(female_weights, female_heights, marker='o', color=[ 0.,0.36078431,0.81960784,1.])
-	plt.plot([x2, x1],[y2, y1], 'k-', lw=2)
-
-	# Plot Estimated decision function for 1 dimension
-	plt.subplot(222)
-	plt.title("Student Height")
-	plt.scatter([i for i,v in enumerate(male_heights)],male_heights, marker='s',color=male_color, edgecolors="darkgreen")
-	plt.scatter([i for i,v in enumerate(female_heights)],female_heights, marker='o',color=female_color, edgecolors="violet")
-	plt.plot([0,sample_size],[y3,y3], 'k-', lw=2)
-
-	# Plot normally distributed data for males : weight x height
-	plt.subplot(223)
-	plt.title("Male Data")
-	plt.xlabel("Male Weight")
-	plt.ylabel("Male Height")
-	plt.scatter(male_weights, male_heights, marker='s',color=male_color, edgecolors="darkgreen")
-
-	# Plot normally distributed data for females : weight x height
-	plt.subplot(224)
-	plt.title("Female Data")
-	plt.xlabel("Female Weight")
-	plt.ylabel("Female Height")
-	plt.scatter(female_weights, female_heights, marker='o',color=female_color, edgecolors="violet")
-
-	plt.tight_layout()
-	plt.show()
-
-def plot_height_data(male_students, female_students, y3=5.5):
-	male_heights = [x.height for x in male_students]
-
-	female_heights = [y.height for y in female_students]
-	sample_size = len(male_students)
-	plt.figure("Scenario A : Height Only")
-	plt.title("Student Height")
-	plt.ylabel("Height")
-	plt.scatter([i for i,v in enumerate(male_heights)],male_heights, marker='s',color=male_color, edgecolors="darkgreen")
-	plt.scatter([i for i,v in enumerate(female_heights)],female_heights, marker='o',color=female_color, edgecolors="violet")
-	plt.plot([0,sample_size],[y3,y3], 'k-', lw=2)
-	plt.show()
-
-def plot_height_weight_data(male_students, female_students, x_vals=[x1,x2], y_vals=[y1,y2]):
-	male_heights = [x.height for x in male_students]
-	male_weights = [x.weight for x in male_students]
-
-	female_heights = [y.height for y in female_students]
-	female_weights = [y.weight for y in female_students]
-	x1, x2 = x_vals[0], x_vals[1]
-	y1, y2 = y_vals[0], y_vals[1]
-
-	sample_size = len(male_students) 
-	plt.figure("Scenario B : Height and Weight")
-	plt.title("Student Height/Weight")
-	plt.xlabel("Weight")
-	plt.ylabel("Height")
-	plt.scatter(male_weights,male_heights,marker="s",color=male_color, edgecolors="darkgreen")
-	plt.scatter(female_weights, female_heights, marker='o', color=female_color, edgecolors="violet")
-	plt.plot([x2, x1],[y2, y1], 'k-', lw=2)
-	plt.show()
-
+'''
+	Returns the status of a given point based on its position relative
+	to a line.
+'''
 def get_point_status(student, slope=0, intercept=5.5):
 	status = (slope*student.weight) + intercept - student.height
 	return status
 
+'''
+	Takes 2 lists separated by gender and returns a readout of the 
+	errors/accuracy of the model based on a dividing line
+'''
 def get_measures(male_students, female_students, slope=0, intercept=5.5):
 	male_error_count = 0
 	male_correct_count = 0
