@@ -7,5 +7,3 @@ class Student:
         self.height = height
         self.weight = weight
         self.gender = gender
-
-    

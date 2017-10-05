@@ -16,7 +16,7 @@ def retrieve_students(fileName="./data.txt"):
 	with open(fileName, newline="\n") as csvfile:
 		csvreader = csv.reader(csvfile, delimiter=",")
 		for row in csvreader:
-			students.append(Student(row[0], row[1], row[2]))
+			students.append(Student(float(row[0]), float(row[1]), int(row[2])))
 	return students
 
 '''

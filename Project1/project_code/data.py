@@ -11,6 +11,36 @@ import random
 import numpy as np
 from .Student import Student
 
+
+'''
+	Should normalize whatever data is put in
+'''
+def normalize_data(data=[]):
+    normalized_data = []
+    min_v = min(data)
+    max_v = max(data)
+    for x in data:
+        normalized_data.append((x - min_v)/(max_v - min_v))
+    return normalized_data
+
+'''
+	Converts a list of students into normalized data form
+	[[norm_height, norm_weight, gender]...]
+'''
+def normalize_student_data(students=[]):
+	normalized_dataset = []
+	student_heights = [x.height for x in students]
+	student_heights = normalize_data(student_heights)
+	student_weights = [x.weight for x in students]
+	student_weights = normalize_data(student_weights)
+
+	student_genders = [x.gender for x in students]
+	for i in range(0, len(students)):
+		student = [student_heights[i], student_weights[i], student_genders[i]]
+		normalized_dataset.append(student)
+	return normalized_dataset
+
+
 '''
 	Generates two normally distributed lists of students separated by gender and 
 	returns the lists.
