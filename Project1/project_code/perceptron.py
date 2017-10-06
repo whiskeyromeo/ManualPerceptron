@@ -64,11 +64,10 @@ class Perceptron:
 				predictions.append(guess)
 				err = row[-1] - guess
 				sum_err += err**2
-				while sum_err > 0.00005:
-					learn = self.alpha * err
-					weights[0] = weights[0] + learn # Adjust the bias
-					for j in range(len(row)-1): # Adjust the other weights
-						weights[j+1] = weights[j+1] + learn * row[j]
+				learn = self.alpha * err
+				weights[0] = weights[0] + learn # Adjust the bias
+				for j in range(len(row)-1): # Adjust the other weights
+					weights[j+1] = weights[j+1] + learn * row[j]
 			iteration.append(predictions)
 			iteration.append(list(weights))
 			iteration.append(sum_err)
