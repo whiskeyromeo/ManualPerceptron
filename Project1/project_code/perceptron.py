@@ -3,7 +3,7 @@
 '''
 
 from math import exp
-
+import numpy as np
 
 '''
 	This code should contain all that is required 
@@ -39,14 +39,15 @@ class Perceptron:
 			return 1.0 #predict female
 		return 0.0 #else predict male
 
+	# This does not work
 	def predict_soft(self, row, weights=[0.,0.,0.], k=3):
 		net = weights[0]
 		for i in range(len(row)-1):
 			net += weights[i+1] * row[i]
-		output = 1/(1+exp(-k * net))
-		# if output >= 0.5:
-		# 	return 0.0
-		# return 1.0
+		# Utilize the sigmoid function
+		output = 1.0/(1.0 + np.exp(-net))
+		return output
+
 
 	#TODO: Major issue --> weights are not updating
 	# First set of weights are repeated...
