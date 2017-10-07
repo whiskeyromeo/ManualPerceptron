@@ -71,7 +71,7 @@ class Perceptron:
 					weights[j+1] = weights[j+1] + learn * row[j]
 			iteration.append(predictions)
 			iteration.append(list(weights))
-			iteration.append(sum_err)
+			iteration.append(round(sum_err*100000.0)/100000.0)
 			evolution.append(iteration)
 		return evolution
 
