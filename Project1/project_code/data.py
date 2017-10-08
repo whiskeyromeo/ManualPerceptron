@@ -40,6 +40,31 @@ def normalize_student_data(students=[]):
 		normalized_dataset.append(student)
 	return normalized_dataset
 
+'''
+'''
+def train_set(students, percentage):
+	value = percentage/100
+	value = value*float(len(students))
+	return_list = random.sample(students, int(value))
+	for student in students:
+		for retlist in return_list:
+			if student == retlist:
+				student[3] = True
+	return students
+
+'''
+'''
+
+def split_set(students):
+	training_set = []
+	testing_set = []
+	for student in students:
+		if student[3] == True:
+			training_set.append(student)
+		else:
+			testing_set.append(student)
+	return training_set, testing_set
+
 
 '''
 	Generates two normally distributed lists of students separated by gender and 
