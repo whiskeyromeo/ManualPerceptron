@@ -66,6 +66,17 @@ def split_set(students):
 	return training_set, testing_set
 
 
+
+def separate_normalized_students(dataset=[], gender_idx=2):
+    male_students = [x for x in dataset if x[gender_idx] == 0]
+    female_students = [x for x in dataset if x[gender_idx] == 1]
+    return male_students, female_students
+
+def separate_and_normalize_students(dataset=[]):
+    students = normalize_student_data(dataset)
+    return separate_normalized_students(students)
+    
+
 '''
 	Generates two normally distributed lists of students separated by gender and 
 	returns the lists.
