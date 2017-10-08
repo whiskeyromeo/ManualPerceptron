@@ -27,9 +27,10 @@ import numpy as np
 '''
 
 class Perceptron:
-	def __init__(self, ite=1000, alpha=0.1):
+	def __init__(self, ite=1000, alpha=0.1, epsilon=10e-5):
 		self.ite = ite
 		self.alpha = alpha
+		self.epsilon  = epsilon
 
 	def predict_hard(self, row, weights):
 		net = weights[0] # set the net to the bias
@@ -71,8 +72,11 @@ class Perceptron:
 					weights[j+1] = weights[j+1] + learn * row[j]
 			iteration.append(predictions)
 			iteration.append(list(weights))
-			iteration.append(round(sum_err*100000.0)/100000.0)
+			iteration.append(round((sum_err/len(inputs))*100000.0)/100000.0)
 			evolution.append(iteration)
+			if((sum_err/len(inputs)) < self.epsilon):
+					print("error below epsilon")
+					break
 		return evolution
 
 

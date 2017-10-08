@@ -121,20 +121,27 @@ def plot_height_weight_data(male_students, female_students, x_vals=[x1,x2], y_va
 
 
 
-def plot_normalized_data(normal_male_students, normal_female_students,dimensions=2,x_vals=[0,1], y_vals=[1,0]):
-    plt.figure()
+def plot_normalized_data(title, normal_male_students, normal_female_students,results, dimensions=2):
+    plt.figure(title)
+    weights = results[-1][1]
+    err = results[-1][2]
     male_heights = [x[0] for x in normal_male_students]
     female_heights = [x[0] for x in normal_female_students]
     if dimensions == 2:    
         male_weights = [x[1] for x in normal_male_students]
         female_weights = [x[1] for x in normal_female_students]
+        x_vals, y_vals = find_intercepts_for_line(weights)
     else:
         male_weights = [i for i,x in enumerate(normal_male_students)]
         female_weights = [i for i,x in enumerate(normal_female_students)]
+        y_intercept = -(weights[0]/weights[1])
+        x_vals = [0, len(male_weights)]
+        y_vals = [y_intercept, y_intercept]
     x1, x2 = x_vals[0], x_vals[1]
     y1, y2 = y_vals[0], y_vals[1]
-    plt.title("Student Height/Weight")
-    plt.xlabel("Weight")
+    plt.title("Final Error Rate: {}".format(err))
+    if dimensions == 2:
+        plt.xlabel("Weight")
     plt.ylabel("Height")
     plt.scatter(male_weights,male_heights,marker="s",color=male_color, edgecolors="darkgreen")
     plt.scatter(female_weights, female_heights, marker='o', color=female_color, edgecolors="violet")
@@ -144,26 +151,30 @@ def plot_normalized_data(normal_male_students, normal_female_students,dimensions
 def plot_animated_data(fig, normal_male_students, normal_female_students, results, dimensions=2, iterations=100):
     # Generate points from normalized male and female students
     
-    #fig = plt.figure()
     male_heights = [x[0] for x in normal_male_students]
     female_heights = [x[0] for x in normal_female_students]
     if dimensions == 2:
         male_weights = [x[1] for x in normal_male_students]
         female_weights = [x[1] for x in normal_female_students]
         ax = plt.axes(xlim=(0,1), ylim=(0,1))
+        ax.set_xlabel("Weight(Normalized)")
+        ax.set_ylabel("Height(Normalized)")
     else: # dimensions is assumed to be 1
         #male_weights = [float(i)/(len(normal_male_students)-1) for i,x in enumerate(normal_male_students)]
         male_weights= [i for i,x in enumerate(normal_male_students)]
         female_weights= [i for i,x in enumerate(normal_female_students)]
         #female_weights = [float(i)/(len(normal_female_students)-1) for i,x in enumerate(normal_female_students)]
         ax = plt.axes(xlim=(0,1), ylim=(0,len(male_weights)))
-        
+        ax.set_xlabel("Height(Normalized)")
+        ax.set_ylabel("Relative Index")
+
     line, = ax.plot([],[], lw=2)
     weights_list = [x[1] for x in results]
     if dimensions == 2:
         male_points = ax.scatter(male_heights,male_weights,marker="s",color=male_color, edgecolors="darkgreen")
         female_points = ax.scatter(female_heights,female_weights,marker='o', color=female_color, edgecolors="violet")
         line_points = find_intercepts_for_all_lines(weights_list)
+
     else:
         male_points = ax.scatter(male_heights, male_weights,marker="s",color=male_color, edgecolors="darkgreen")
         female_points = ax.scatter(female_heights, female_weights, marker='o', color=female_color, edgecolors="violet")
