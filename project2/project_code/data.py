@@ -71,6 +71,15 @@ def split_set(students):
 			testing_set.append(student)
 	return training_set, testing_set
 
+def tecalc(predicted_results, actual_results):
+    sub_results = []
+    for i in range(0,len(predicted_results)):
+        sub_results.append(predicted_results[i] - actual_results[i])
+    total_error = 0
+    for i in range(0,len(sub_results)):
+        total_error += sub_results[i]*sub_results[i]
+    return total_error
+
 '''
 	Generates two normally distributed lists of students separated by gender and 
 	returns the lists.
