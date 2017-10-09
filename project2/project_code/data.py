@@ -142,10 +142,15 @@ def get_measures(male_students, female_students, slope=0, intercept=5.5):
 	    if status > 0:
 	        female_correct_count += 1
 
-	print("male correct, true positive : {}".format(male_correct_count/len(male_students)))
-	print("male errors, false positive : {}".format(male_error_count/len(male_students)))
-	print("female errors, false negative : {}".format(female_error_count/len(female_students)))
-	print("female correct, true negative : {}".format(female_correct_count/len(female_students)))
+	true_pos = round((male_correct_count/len(male_students))*100000.0)/100000.0
+	false_pos = round((male_error_count/len(male_students))*100000.0)/100000.0
+	false_neg = round((female_error_count/len(female_students))*100000.0)/100000.0
+	true_neg = round((female_correct_count/len(female_students))*100000.0)/100000.0
+
+	print("male correct, true positive : {}".format(true_pos))
+	print("male errors, false positive : {}".format(false_pos))
+	print("female errors, false negative : {}".format(false_neg))
+	print("female correct, true negative : {}".format(true_neg))
 
 	# ACCURACY MEASURE
 	accuracy = (male_correct_count + female_correct_count) / (male_error_count + female_error_count + male_correct_count + female_correct_count)
